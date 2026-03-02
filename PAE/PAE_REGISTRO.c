@@ -53,25 +53,35 @@ void registrar_estudiante(struct Estudiante lista[], int *contador) {
         printf("============================================================================\n");
         printf("\n REGISTRO ESTUDIANTE \n");
         printf("============================================================================\n");
+        printf("Registro No: %d\n", *contador + 1);
         lista[*contador].numero_registro = *contador + 1;
+
+            printf("Fecha (DD/MM//AA): ");
+        scanf("%s", lista[*contador].fecha);
         
-        printf("Ingresa la matricula: ");
+        printf("Matricula: ");
         scanf("%s", lista[*contador].matricula);
         getchar();
 
-        printf("Ingresa el nombre completo: ");
+        printf("Estudiante: ");
         fgets(lista[*contador].nombre_apellido, 50, stdin);
         lista[*contador].nombre_apellido[strcspn(lista[*contador].nombre_apellido, "\n")] = 0;
 
-        printf("Ingresa la fecha (dd/mm/aa): ");
-        scanf("%s", lista[*contador].fecha);
+    
         
         strcpy(lista[*contador].estado, "PENDIENTE");
         
-        printf("\nESTUDIANTE REGISTRADO CON EXITO.\n");
+        printf("\nESTUDIANTE REGISTRADO.\n");
         (*contador)++;
     } else {
         printf("\nLimite de registros alcanzado.\n");
+    }
+    printf("¿Registrar otro estudiante?[R]  o regresar al menu principal?[M] : ");
+    
+    char opcion;
+    scanf(" %c", &opcion);
+    if(opcion == 'R' || opcion == 'r') {
+        registrar_estudiante(lista, contador);
     }
 }
 
@@ -84,6 +94,7 @@ void asignar_pae(struct Estudiante lista[], int contador) {
 
     for (int i = 0; i < contador; i++) {
         if (strcmp(lista[i].matricula, mat) == 0) {
+
             // Verificar si ya tiene asignación
             if (strcmp(lista[i].estado, "PENDIENTE") != 0) {
                 printf("\nNo. Registro: %d\nFecha: %s\nEstudiante: %s\nEstado: %s\n", 
